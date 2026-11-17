@@ -1,0 +1,55 @@
+CREATE TABLE department (
+Dept_ID INT PRIMARY KEY,
+Dept_Name VARCHAR(20) NOT NULL,
+Floor_No INT NOT NULL,
+Manager_ID INT,
+);
+
+CREATE TABLE employee (
+Emp_ID INT PRIMARY KEY,
+Fname VARCHAR(20) NOT NULL,
+Lname VARCHAR(20) NOT NULL,
+Hire_Date DATE NOT NULL,
+Salary DECIMAL (8,2),
+Phone CHAR(10),
+Dept_ID INT,
+
+FOREIGN KEY (Dept_ID) REFERENCES employee(Dept_ID)
+);
+
+ALTER TABLE department
+ADD FOREIGN KEY (Manager_ID)
+REFERENCES employee(Emp_ID);
+
+CREATE TABLE customer(
+Customer_ID INT PRIMARY KEY,
+Fname VARCHAR(20) NOT NULL,
+Lname VARCHAR(20) NOT NULL,
+Phone CHAR(10),
+Email VARCHAR(50)
+);
+
+CREATE TABLE shoe(
+Shoe_ID INT PRIMARY KEY,
+Brand VARCHAR(20) NOT NULL,
+Model VARCHAR(20),
+Size DECIMAL(3,1) NOT NULL,
+Color VARCHAR(30) NOT NULL,
+Price DECIMAL(6,2) NOT NULL,
+Stock_Qty INT NOT NULL,
+Dept_ID INT,
+
+FOREIGN KEY (Dept_ID) REFERENCES department(Dept_ID)
+);
+
+CREATE TABLE wishlist_table(
+Customer_ID INT,
+Item_no INT NOT NULL,
+Shoe_ID INT,
+Date_Added DATE NOT NULL,
+Priority_Level VARCHAR(20) NOT NULL
+Notes VARCHAR(500),
+
+FOREIGN KEY (Customer_ID) REFERENCES customer(Customer_ID)
+FOREIGN KEY (Shoe_ID) REFERENCES shoe(Shoe_ID)
+);
